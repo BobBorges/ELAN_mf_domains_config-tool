@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 import argparse, sys, os, shutil, time
 import xml.etree.ElementTree as et
+
+# LICENSE GNU gpl-3 http://www.gnu.org/licenses/gpl-3.0.html
+# Author assumes no liability. Read and understand what the program does before you use it.
+
 #####################
 ### Start Options ###
 
