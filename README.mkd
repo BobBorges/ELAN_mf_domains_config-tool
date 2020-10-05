@@ -71,3 +71,8 @@ But the `mf_domains.pfsx` file should contain absolute paths. Set the -p | --src
 ### undo
 
 `undo` replaces the `mf_domains.pfsx` file with the `mf_domains.pfsx.OLD` file. N.b. `undo` is destructive – you can't recover the replaced file.
+
+License
+-------
+Released under [gnu gpl-3](http://www.gnu.org/licenses/gpl-3.0.html).
+
