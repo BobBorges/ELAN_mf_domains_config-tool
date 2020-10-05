@@ -1,0 +1,73 @@
+ELAN multi-file search domains config tool
+==========================================
+
+This tool will generate a new elan search domain from a list of files, bypassing the need to select files manually in the GUI.
+
+__Motivation:__ In a project, I had a large directory of Elan projects. This particular project had no IMDI metadata associated with the files, but search domains could be narrowed down by programmatically categorizing content. Moving or duplicating batches of files to sub-folders for easy addition of a batch to the multi-file search domains is messy and potentially risky for the data. Manually selecting dozens or hundreds of files to create a new search domain is unreasonable.
+
+Elan reads multi-file search domains from a file called `mf_domains.pfsx`. By default on debian-based OSs, the file is located at `~/.elan_data/mf_domains.pfsx`. 
+
+This program will either edit the exisiting `mf_domains.pfsx` file or generate a new one to contain a new mf search domain based on a list of input files and a batch name provided by the user. When chosing to edit or replace an existing `mf_domains.pfsx` doc, the program will generate a copy of the pre-edited version of the file, saved in the same location as `mf_domains.pfsx.OLD`.
+
+Installation
+------------
+
+This is a Python 3 program that uses the folling modules:
+
+* argparse
+* xml.etree.ElementTree
+* os
+* shutil
+* sys
+* time
+
+Make sure you have Python 3 installed, clone or download the program.
+
+Usage
+-----
+
+Call the program to see available options
+
+    python3 mk_mf_config.py
+
+There are three modes: `set`, `generate` and `undo`.
+
+### set
+
+`set` allows you to set options. Currently, there is one setable option, the default location of your `mf_domains.pfsx` file. By default, the location option is set to `None` in thie program, but you need to set it to use `generate -u | -r`.  Find your location and set with:
+
+    python3 mk_mf_config.py set -l /home/bob/.elan_data
+
+Make sure you set an absolute path.
+
+### generate
+
+`generate` takes two positional arguments, a file list, and a batch name. The list of files will become the new search domain; the batch name will be the name of the search domain. `generate` has a few options:
+
+* -u | --update
+
+This will add a new batch to the existing `mf_domains.pfsx` file. The location of your `mf_domains.pfsx` file needs to be set to use this option.
+
+* -r | --replace
+
+This will replace the existing `mf_domains.pfsx` file. The location of your `mf_domains.pfsx` file needs to be set to use this option.
+
+* -p | --src_path
+
+This will set the source path of the files in your file list. It may be that you have a file list like:
+
+    file_0001.eaf
+    file_0002.eaf
+    ...
+    file_9999.eaf
+
+But the `mf_domains.pfsx` file should contain absolute paths. Set the -p | --src_path option to prepend full path info to each file in your file list before feeding it to the new mf domain. e.g. `-p /home/bob/elan_projects` would generate
+
+    /home/bob/elan_projects/file_0001.eaf
+    /home/bob/elan_projects/file_0002.eaf
+    ...
+    /home/bob/elan_projects/file_9999.eaf
+
+### undo
+
+`undo` replaces the `mf_domains.pfsx` file with the `mf_domains.pfsx.OLD` file. N.b. `undo` is destructive – you can't recover the replaced file.
