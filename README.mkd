@@ -3,7 +3,7 @@ ELAN multi-file search domains config tool
 
 This tool will generate a new elan search domain from a list of files, bypassing the need to select files manually in the GUI.
 
-__Motivation:__ In a project, I had a large directory of Elan projects. This particular project had no IMDI metadata associated with the files, but search domains could be narrowed down by programmatically categorizing content. Moving or duplicating batches of files to sub-folders for easy addition of a batch to the multi-file search domains is messy and potentially risky for the data. Manually selecting dozens or hundreds of files to create a new search domain is unreasonable.
+__Motivation:__ In one project, I have a large directory of Elan projects. These particular files have no associated IMDI metadata, but search domains can be narrowed down by programmatically categorizing content. Moving or duplicating batches of files to sub-folders for easy addition of a batch to the multi-file search domains is messy and potentially risky for the data. Manually selecting dozens or hundreds of files to create a new search domain is unreasonable.
 
 Elan reads multi-file search domains from a file called `mf_domains.pfsx`. By default on debian-based OSs, the file is located at `~/.elan_data/mf_domains.pfsx`. 
 
@@ -21,7 +21,7 @@ This is a Python 3 program that uses the folling modules:
 * sys
 * time
 
-Make sure you have Python 3 installed, clone or download the program.
+Make sure you have Python 3 installed, clone or download the `mk_mf_config.py` file.
 
 Usage
 -----
@@ -52,6 +52,8 @@ This will add a new batch to the existing `mf_domains.pfsx` file. The location o
 
 This will replace the existing `mf_domains.pfsx` file. The location of your `mf_domains.pfsx` file needs to be set to use this option.
 
+Options `-u` and `-r` are mutually exclusive. If neither `-u` nor `-r` are given, the program will generate an `mf_domains.pfsx` file in the same directory.
+
 * -p | --src_path
 
 This will set the source path of the files in your file list. It may be that you have a file list like:
@@ -61,7 +63,7 @@ This will set the source path of the files in your file list. It may be that you
     ...
     file_9999.eaf
 
-But the `mf_domains.pfsx` file should contain absolute paths. Set the -p | --src_path option to prepend full path info to each file in your file list before feeding it to the new mf domain. e.g. `-p /home/bob/elan_projects` would generate
+But the `mf_domains.pfsx` file should contain absolute paths. Set the -p | --src_path option to prepend full path info to each file in your file list before feeding it to the new mf domain. e.g. `-p /home/bob/elan_projects` would generate:
 
     /home/bob/elan_projects/file_0001.eaf
     /home/bob/elan_projects/file_0002.eaf
@@ -74,5 +76,5 @@ But the `mf_domains.pfsx` file should contain absolute paths. Set the -p | --src
 
 License
 -------
-Released under [gnu gpl-3](http://www.gnu.org/licenses/gpl-3.0.html).
 
+Released under [gnu gpl-3](http://www.gnu.org/licenses/gpl-3.0.html).
